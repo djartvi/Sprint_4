@@ -1,4 +1,4 @@
-package pageobject;
+package pom;
 
 public class MainPageDescription {
     // Кнопка согласия с куки
