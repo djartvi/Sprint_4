@@ -20,12 +20,6 @@ public class AccordionListTest {
     private final String dropDownText;
     private final boolean result;
 
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-    }
-
     public AccordionListTest(String elementText, String dropDownText, boolean result) {
             this.elementText = elementText;
             this.dropDownText = dropDownText;
@@ -61,6 +55,12 @@ public class AccordionListTest {
                 { text7, dropDown7, true},
                 { text8, dropDown8, true},
         };
+    }
+
+    @Before
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @Test

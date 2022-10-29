@@ -12,7 +12,7 @@ public class MainPage {
 
     private final By acceptCookieButton = By.id("rcc-confirm-button");
     private final By makeOrderHeaderButton = By.xpath("(//button[text()='Заказать'])[1]");
-    private final By makeOrderFooterButton = By.xpath("(//button[text()='Заказать'])[2]");
+    private final By makeOrderBottomButton = By.xpath("(//button[text()='Заказать'])[2]");
 
     public WebElement getAccordionElement(String elementText) {
         return driver.findElement(By.xpath("//*[text() = '" + elementText + "']"));
@@ -40,8 +40,8 @@ public class MainPage {
         return this;
     }
 
-    public MainPage clickMakeOrderFooterButton() {
-        WebElement element = driver.findElement(makeOrderFooterButton);
+    public MainPage clickMakeOrderBottomButton() {
+        WebElement element = driver.findElement(makeOrderBottomButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         element.click();
         return this;

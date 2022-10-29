@@ -3,10 +3,9 @@ package makeorder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pom.MainPage;
@@ -30,12 +29,6 @@ public class MakeOrderTest {
     private final String comment;
     private WebDriver driver;
 
-    @Before
-    public void setUp() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
-    }
-
     public MakeOrderTest(String name, String surname, String address, String metro, String phone, String date, int days, String color, String comment) {
         this.name = name;
         this.surname = surname;
@@ -57,47 +50,84 @@ public class MakeOrderTest {
         };
     }
 
-
-
-
+    @Before
+    public void setUp() {
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+    }
 
     @Test
     public void orderFromHeaderButton() {
         MainPage mainPage = new MainPage(driver);
 
         mainPage
-                .open();
-//                .clickAcceptCookieButton()
-//                .clickMakeOrderHeaderButton();
-//
-//        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(driver);
-//
-//        clientDetailsPage
-//                .inputName(name)
-//                .inputSurname(surname)
-//                .inputAddress(address)
-//                .inputMetro(metro)
-//                .inputPhoneNumber(phone)
-//                .clickNextButton();
-//
-//        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
-//
-//        orderDetailsPage
-//                .inputDate(date)
-//                .inputDuration(days)
-//                .selectColor(color)
-//                .inputComment(comment)
-//                .clickMakeOrderFooterButton();
-//
-//        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
-//
-//        orderConfirmationPage.clickConfirmOrderButton();
-//
-//        assertTrue(orderConfirmationPage.isOrderConfirmed());
-//    }
-//
-//    @After
-//    public void tearDown() {
-//        driver.quit();
+                .open()
+                .clickAcceptCookieButton()
+                .clickMakeOrderHeaderButton();
+
+        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(driver);
+
+        clientDetailsPage
+                .inputName(name)
+                .inputSurname(surname)
+                .inputAddress(address)
+                .inputMetro(metro)
+                .inputPhoneNumber(phone)
+                .clickNextButton();
+
+        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
+
+        orderDetailsPage
+                .inputDate(date)
+                .inputDuration(days)
+                .selectColor(color)
+                .inputComment(comment)
+                .clickMakeOrderBottomButton();
+
+        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
+
+        orderConfirmationPage.clickConfirmOrderButton();
+
+        assertTrue(orderConfirmationPage.isOrderConfirmed());
+    }
+
+    @Test
+    public void orderFromBottomButton() {
+        MainPage mainPage = new MainPage(driver);
+
+        mainPage
+                .open()
+                .clickAcceptCookieButton()
+                .clickMakeOrderBottomButton();
+
+        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(driver);
+
+        clientDetailsPage
+                .inputName(name)
+                .inputSurname(surname)
+                .inputAddress(address)
+                .inputMetro(metro)
+                .inputPhoneNumber(phone)
+                .clickNextButton();
+
+        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
+
+        orderDetailsPage
+                .inputDate(date)
+                .inputDuration(days)
+                .selectColor(color)
+                .inputComment(comment)
+                .clickMakeOrderBottomButton();
+
+        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
+
+        orderConfirmationPage.clickConfirmOrderButton();
+
+        assertTrue(orderConfirmationPage.isOrderConfirmed());
+    }
+
+    @After
+    public void tearDown() {
+        driver.quit();
     }
 }

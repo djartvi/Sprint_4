@@ -10,7 +10,7 @@ public class OrderDetailsPage {
     private final By dateField = By.xpath("//*[@placeholder='* Когда привезти самокат']");
     private final By durationField = By.xpath("//*[text()='* Срок аренды']");
     private final By commentField = By.xpath("//*[@placeholder='Комментарий для курьера']");
-    private final By makeOrderFooterButton = By.xpath("(//button[text()='Заказать'])[2]");
+    private final By makeOrderBottomButton = By.xpath("(//button[text()='Заказать'])[2]");
 
     public OrderDetailsPage(WebDriver driver) {
         this.driver = driver;
@@ -38,8 +38,8 @@ public class OrderDetailsPage {
         return this;
     }
 
-    public OrderDetailsPage clickMakeOrderFooterButton() {
-        driver.findElement(makeOrderFooterButton).click();
+    public OrderDetailsPage clickMakeOrderBottomButton() {
+        driver.findElement(makeOrderBottomButton).click();
         return this;
     }
 }
