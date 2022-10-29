@@ -7,13 +7,11 @@ import org.openqa.selenium.WebElement;
 
 public class MainPage {
     private final String url = "https://qa-scooter.praktikum-services.ru/";
+
     private final WebDriver driver;
 
     private final By acceptCookieButton = By.id("rcc-confirm-button");
     private final By makeOrderHeaderButton = By.xpath("(//button[text()='Заказать'])[1]");
-    private final By orderStatusButton = By.xpath("//button[text()='Статус заказа']");
-    private final By orderNumberField = By.xpath("//*[@placeholder='Введите номер заказа']");
-    private final By goButton = By.xpath("(//button[contains(text(), 'Go')]");
     private final By makeOrderFooterButton = By.xpath("(//button[text()='Заказать'])[2]");
 
     public WebElement getAccordionElement(String elementText) {
@@ -42,28 +40,10 @@ public class MainPage {
         return this;
     }
 
-    public MainPage clickOrderStatusButton() {
-        driver.findElement(orderStatusButton).click();
-        return this;
-    }
-
-    public MainPage clickOrderNumberField() {
-        driver.findElement(orderNumberField).click();
-        return this;
-    }
-
-    public MainPage inputOrderNumber(String text) {
-        driver.findElement(orderNumberField).sendKeys(text);
-        return this;
-    }
-
-    public MainPage clickGoButton() {
-        driver.findElement(goButton).click();
-        return this;
-    }
-
     public MainPage clickMakeOrderFooterButton() {
-        driver.findElement(makeOrderFooterButton).click();
+        WebElement element = driver.findElement(makeOrderFooterButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        element.click();
         return this;
     }
 

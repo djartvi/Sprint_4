@@ -1,28 +1,52 @@
 package pom;
 
 public class MainPageDescription {
+    // Заголовок страницы
+    // /html/head/title
+
+    // Лого Яндекс в шапке
+    //*[@id="root"]/div/div/div[1]/div[1]/a[1]/img
+
+    // Лого Самокат в шапке
+    //*[@id="root"]/div/div/div[1]/div[1]/a[2]/img
+
+    // Всплывающий блок куки
+    // .App_CookieConsent__1yUIN
+
     // Кнопка согласия с куки
-    // By.id("rcc-confirm-button")
+    //*[@id="rcc-confirm-button"]
 
     // Кнопка "Заказать" вверху страницы
-    // By.xpath("(//button[text()='Заказать'])[1]")
+    //button[text()='Заказать'])[1]
 
     // Кнопка "Статус заказа"
-    // By.xpath("//button[text()='Статус заказа']")
+    //button[text()='Статус заказа']
 
     // Поле ввода номера заказа
-    // By.xpath("//*[@placeholder= 'Введите номер заказа']")
+    //*[@placeholder= 'Введите номер заказа']
 
     // Кнопка поиска заказов "Go!"
-    // By.xpath("(//button[contains(text(), 'Go')]")
+    //button[contains(text(), 'Go')]
+
+    // Главный тестовый блок
+    //*[@id="root"]/div/div/div[2]/div[4]
+
+    // Картинка самоката
+    // .Home_BluePrint__TGX2n
+
+    // Блок "Как это работает"
+    // .Home_ThirdPart__LSTEE
 
     // Кнопка "Заказать" внизу страницы
-    // By.xpath("(//button[text()='Заказать'])[2]")
+    //button[text()='Заказать'])[2]
+
+    // Блок "Вопросы о важном"
+    // .Home_FourPart__1uthg
 
     // Кнопки выпадающего списка в блоке Вопросы о важном
-    // By.xpath("//*[contains(text(), "Текст ответа")]")
+    //*[contains(text(), "Текст вопроса")]
 
     // Выпадающий ответ при нажатии на кнопку в блоке Вопросы о важном
-    // By.xpath("//*[not(@hidden) and contains(text(), "Текст ответа")]")
+    //*[not(@hidden) and contains(text(), "Текст ответа")]
 
 }

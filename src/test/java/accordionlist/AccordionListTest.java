@@ -31,8 +31,9 @@ public class AccordionListTest {
             this.dropDownText = dropDownText;
             this.result = result;
     }
+
     @Parameterized.Parameters
-    public static Object[][] getSumData() {
+    public static Object[][] accordionElements() {
         String text1 = "Сколько это стоит? И как оплатить?";
         String dropDown1 = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
         String text2 = "Хочу сразу несколько самокатов! Так можно?";
@@ -73,8 +74,8 @@ public class AccordionListTest {
                 .clickAccordionElement(elementText);
 
         assertEquals(result, mainPage.getAccordionDropDown(dropDownText).isDisplayed());
-
     }
+
     @After
     public void tearDown() {
         driver.quit();

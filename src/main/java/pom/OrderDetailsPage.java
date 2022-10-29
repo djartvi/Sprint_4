@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 
 public class OrderDetailsPage {
     private final WebDriver driver;
-    public OrderDetailsPage(WebDriver driver) {
-        this.driver = driver;
-    }
 
     private final By dateField = By.xpath("//*[@placeholder='* Когда привезти самокат']");
     private final By durationField = By.xpath("//*[text()='* Срок аренды']");
     private final By commentField = By.xpath("//*[@placeholder='Комментарий для курьера']");
     private final By makeOrderFooterButton = By.xpath("(//button[text()='Заказать'])[2]");
-    private final By confirmOrderButton = By.xpath("//button[text()='Да']");
+
+    public OrderDetailsPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public OrderDetailsPage inputDate(String text) {
         driver.findElement(dateField).sendKeys(text);
@@ -40,11 +40,6 @@ public class OrderDetailsPage {
 
     public OrderDetailsPage clickMakeOrderFooterButton() {
         driver.findElement(makeOrderFooterButton).click();
-        return this;
-    }
-
-    public OrderDetailsPage clickConfirmOrderButton() {
-        driver.findElement(confirmOrderButton).click();
         return this;
     }
 }
