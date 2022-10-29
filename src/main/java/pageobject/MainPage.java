@@ -1,5 +1,6 @@
 package pageobject;
 
+import com.sun.tools.javac.Main;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,64 +17,64 @@ public class MainPage {
     private final By goButton = By.xpath("(//button[contains(text(), 'Go')]");
     private final By makeOrderFooterButton = By.xpath("(//button[text()='Заказать'])[2]");
 
-    private final By accordionList = By.className("accordion");
-
-    public String text;
-    public String textDropDown;
-    public By accordionButton = By.xpath("//*[contains(text(), " + text + ")]");
-    private By accordionDropDown = By.xpath("//*[contains(text(), '" + textDropDown + "')]");
+    public WebElement getAccordionElement(String elementText) {
+        return driver.findElement(By.xpath("//*[text() = '" + elementText + "']"));
+    }
+    public WebElement getAccordionDropDown(String dropDownText) {
+        return driver.findElement(By.xpath("//*[text() = '" + dropDownText + "']"));
+    }
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void open() {
+    public MainPage open() {
         driver.get(url);
+        return this;
     }
 
-    public void clickAcceptCookieButton() {
+    public MainPage clickAcceptCookieButton() {
         driver.findElement(acceptCookieButton).click();
+        return this;
     }
 
-    public void clickMakeOrderHeaderButton() {
+    public MainPage clickMakeOrderHeaderButton() {
         driver.findElement(makeOrderHeaderButton).click();
+        return this;
     }
 
-    public void clickOrderStatusButton() {
+    public MainPage clickOrderStatusButton() {
         driver.findElement(orderStatusButton).click();
+        return this;
     }
 
-    public void clickOrderNumberField() {
+    public MainPage clickOrderNumberField() {
         driver.findElement(orderNumberField).click();
+        return this;
     }
 
-    public void inputOrderNumber(String text) {
+    public MainPage inputOrderNumber(String text) {
         driver.findElement(orderNumberField).sendKeys(text);
+        return this;
     }
 
-    public void clickGoButton() {
+    public MainPage clickGoButton() {
         driver.findElement(goButton).click();
+        return this;
     }
 
-    public void clickMakeOrderFooterButton() {
+    public MainPage clickMakeOrderFooterButton() {
         driver.findElement(makeOrderFooterButton).click();
+        return this;
     }
 
-    public WebElement getAccordionList() {
-        return driver.findElement(accordionList);
+    public MainPage clickAccordionElement(String elementText) {
+        getAccordionElement(elementText).click();
+        return this;
     }
 
-    public void clickAccordionButton(String text) {
-        this.text = text;
-        driver.findElement(accordionButton).click();
-    }
-
-    public boolean isDisplayedAccordionDropDown(String text) {
-        this.textDropDown = text;
-        return driver.findElement(accordionDropDown).isDisplayed();
-    }
-
-    public void scrollToElement(WebElement element) {
+    public MainPage scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        return this;
     }
 }

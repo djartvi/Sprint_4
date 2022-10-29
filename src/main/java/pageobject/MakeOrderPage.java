@@ -1,12 +1,11 @@
 package pageobject;
 
-import com.sun.tools.javac.Main;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class MainPage {
+public class MakeOrderPage {
     private final String url = "https://qa-scooter.praktikum-services.ru/";
     private final WebDriver driver;
 
@@ -24,56 +23,56 @@ public class MainPage {
         return driver.findElement(By.xpath("//*[text() = '" + dropDownText + "']"));
     }
 
-    public MainPage(WebDriver driver) {
+    public MakeOrderPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public MainPage open() {
+    public MakeOrderPage open() {
         driver.get(url);
         return this;
     }
 
-    public MainPage clickAcceptCookieButton() {
+    public MakeOrderPage clickAcceptCookieButton() {
         driver.findElement(acceptCookieButton).click();
         return this;
     }
 
-    public MainPage clickMakeOrderHeaderButton() {
+    public MakeOrderPage clickMakeOrderHeaderButton() {
         driver.findElement(makeOrderHeaderButton).click();
         return this;
     }
 
-    public MainPage clickOrderStatusButton() {
+    public MakeOrderPage clickOrderStatusButton() {
         driver.findElement(orderStatusButton).click();
         return this;
     }
 
-    public MainPage clickOrderNumberField() {
+    public MakeOrderPage clickOrderNumberField() {
         driver.findElement(orderNumberField).click();
         return this;
     }
 
-    public MainPage inputOrderNumber(String text) {
+    public MakeOrderPage inputOrderNumber(String text) {
         driver.findElement(orderNumberField).sendKeys(text);
         return this;
     }
 
-    public MainPage clickGoButton() {
+    public MakeOrderPage clickGoButton() {
         driver.findElement(goButton).click();
         return this;
     }
 
-    public MainPage clickMakeOrderFooterButton() {
+    public MakeOrderPage clickMakeOrderFooterButton() {
         driver.findElement(makeOrderFooterButton).click();
         return this;
     }
 
-    public MainPage clickAccordionElement(String elementText) {
+    public MakeOrderPage clickAccordionElement(String elementText) {
         getAccordionElement(elementText).click();
         return this;
     }
 
-    public MainPage scrollToElement(WebElement element) {
+    public MakeOrderPage scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         return this;
     }
