@@ -3,6 +3,8 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class OrderDetailsPage {
     private final WebDriver driver;
@@ -41,5 +43,17 @@ public class OrderDetailsPage {
     public OrderDetailsPage clickMakeOrderBottomButton() {
         driver.findElement(makeOrderBottomButton).click();
         return this;
+    }
+
+    public boolean isDateCorrect(String date) {
+        String futureDate = "31.12.2022";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        LocalDate d1 = LocalDate.now();
+        LocalDate d2 = LocalDate.parse(date, formatter);
+        LocalDate d3 = LocalDate.parse(futureDate, formatter);
+
+        return (d1.isBefore(d2) && d2.isBefore(d3));
     }
 }

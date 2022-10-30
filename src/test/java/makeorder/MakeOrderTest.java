@@ -2,22 +2,23 @@ package makeorder;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import pom.MainPage;
-import pom.ClientDetailsPage;
-import pom.OrderConfirmationPage;
-import pom.OrderDetailsPage;
+import pom.*;
 
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
 public class MakeOrderTest {
+    private WebDriver driver;
 
+    private final boolean isButtonFromHeader;
     private final String name;
     private final String surname;
     private final String address;
@@ -27,9 +28,9 @@ public class MakeOrderTest {
     private final int days;
     private final String color;
     private final String comment;
-    private WebDriver driver;
 
-    public MakeOrderTest(String name, String surname, String address, String metro, String phone, String date, int days, String color, String comment) {
+    public MakeOrderTest(boolean isButtonFromHeader, String name, String surname, String address, String metro, String phone, String date, int days, String color, String comment) {
+        this.isButtonFromHeader = isButtonFromHeader;
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -44,28 +45,26 @@ public class MakeOrderTest {
     @Parameterized.Parameters
     public static Object[][] orderParameters() {
         return new Object[][] {
-                {"Любитель", "Хачапури", "Грузия", "Нагорная", "89990000000", "1.11.22", 3, "чёрный жемчуг", "От всей души"},
-                {"Васька", "Голый", "Парк Горького", "Октябрьская", "80000000000", "2.11.22", 1, "чёрный жемчуг", "желаю всех благ"},
-                {"Лютый", "Замкадыш", "Москва", "Бунинская аллея", "88005553535", "3.10.23", 7, "серая безысходность", "Тебе, ревьюер!"},
+                {true, "Любитель", "Хачапури", "Грузия", "Нагорная", "89990000000", "1.11.22", 2, "чёрный жемчуг", "От всей души"},
+                {true, "Васька", "Голый", "Парк Горького", "Октябрьская", "80000000000", "2.11.22", 1, "чёрный жемчуг", "желаю всех благ"},
+                {false, "Лютый", "Замкадыш", "Москва", "Бунинская аллея", "88005553535", "3.10.23", 6, "серая безысходность", "тебе!"},
+                {false, "Вот", "Такие", "Делишки", "Деловой центр", "88005553535", "4.09.24", 7, "серая безысходность", "ревьюер!"},
         };
     }
 
-    @Before
-    public void setUp() {
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
-    }
+    @Rule
+    public BrowserSelect browserSelect = new BrowserSelect();
 
     @Test
-    public void orderFromHeaderButton() {
-        MainPage mainPage = new MainPage(driver);
+    public void MakeOrderTest() {
+        MainPage mainPage = new MainPage(browserSelect.getDriver());
 
         mainPage
                 .open()
                 .clickAcceptCookieButton()
-                .clickMakeOrderHeaderButton();
+                .clickMakeOrderButton(isButtonFromHeader);
 
-        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(driver);
+        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(browserSelect.getDriver());
 
         clientDetailsPage
                 .inputName(name)
@@ -75,7 +74,7 @@ public class MakeOrderTest {
                 .inputPhoneNumber(phone)
                 .clickNextButton();
 
-        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
+        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(browserSelect.getDriver());
 
         orderDetailsPage
                 .inputDate(date)
@@ -84,50 +83,11 @@ public class MakeOrderTest {
                 .inputComment(comment)
                 .clickMakeOrderBottomButton();
 
-        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
+        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(browserSelect.getDriver());
 
         orderConfirmationPage.clickConfirmOrderButton();
 
         assertTrue(orderConfirmationPage.isOrderConfirmed());
     }
 
-    @Test
-    public void orderFromBottomButton() {
-        MainPage mainPage = new MainPage(driver);
-
-        mainPage
-                .open()
-                .clickAcceptCookieButton()
-                .clickMakeOrderBottomButton();
-
-        ClientDetailsPage clientDetailsPage = new ClientDetailsPage(driver);
-
-        clientDetailsPage
-                .inputName(name)
-                .inputSurname(surname)
-                .inputAddress(address)
-                .inputMetro(metro)
-                .inputPhoneNumber(phone)
-                .clickNextButton();
-
-        OrderDetailsPage orderDetailsPage = new OrderDetailsPage(driver);
-
-        orderDetailsPage
-                .inputDate(date)
-                .inputDuration(days)
-                .selectColor(color)
-                .inputComment(comment)
-                .clickMakeOrderBottomButton();
-
-        OrderConfirmationPage orderConfirmationPage = new OrderConfirmationPage(driver);
-
-        orderConfirmationPage.clickConfirmOrderButton();
-
-        assertTrue(orderConfirmationPage.isOrderConfirmed());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 }

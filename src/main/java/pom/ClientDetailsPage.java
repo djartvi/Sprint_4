@@ -3,6 +3,7 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class ClientDetailsPage {
     private final WebDriver driver;
@@ -10,12 +11,25 @@ public class ClientDetailsPage {
         this.driver = driver;
     }
 
+    private final By scooterLogoButton = By.xpath("//*[contains(@class, 'Header_LogoScooter')]");
+
     private final By nameField = By.xpath("//*[@placeholder='* Имя']");
     private final By surnameField = By.xpath("//*[@placeholder='* Фамилия']");
     private final By addressField = By.xpath("//*[@placeholder='* Адрес: куда привезти заказ']");
     private final By metroField = By.xpath("//*[@placeholder='* Станция метро']");
     private final By phoneNumberField = By.xpath("//*[@placeholder='* Телефон: на него позвонит курьер']");
     private final By nextButton = By.xpath("//button[text()='Далее']");
+
+    private final By nameError = By.xpath("//*[text()='Введите корректное имя']");
+    private final By surnameError = By.xpath("//*[text()='Введите корректную фамилию']");
+    private final By addressError = By.xpath("//*[text()='Введите корректный адрес']");
+    private final By metroError = By.xpath("//*[text()='Выберите станцию']");
+    private final By phoneNumberError = By.xpath("//*[text()='Введите корректный номер']");
+
+    public ClientDetailsPage clickScooterLogoButton() {
+        driver.findElement(scooterLogoButton).click();
+        return this;
+    }
 
     public ClientDetailsPage inputName(String text) {
         driver.findElement(nameField).sendKeys(text);
@@ -47,5 +61,36 @@ public class ClientDetailsPage {
     public ClientDetailsPage clickNextButton() {
         driver.findElement(nextButton).click();
         return this;
+    }
+
+    public boolean isNameErrorDisplayed() {
+        boolean isDisplayed = driver.findElement(nameError).isDisplayed();
+        driver.findElement(nameField).clear();
+        return isDisplayed;
+    }
+
+    public boolean isSurnameErrorDisplayed() {
+        boolean isDisplayed = driver.findElement(surnameError).isDisplayed();
+        driver.findElement(surnameField).clear();
+        return isDisplayed;
+    }
+
+    public boolean isAddressErrorDisplayed() {
+        boolean isDisplayed = driver.findElement(addressError).isDisplayed();
+        driver.findElement(addressField).clear();
+        return isDisplayed;
+    }
+
+    public boolean isListContainsText(String metro) {
+        driver.findElement(metroField).click();
+        boolean isValid = driver.findElements(By.xpath("//*[@class='select-search__options']//*[contains(text(), '" + metro + "')]")).size() > 0;
+        driver.findElement(addressField).click();
+        return isValid;
+    }
+
+    public boolean isPhoneNumberDisplayed() {
+        boolean isDisplayed = driver.findElement(phoneNumberError).isDisplayed();
+        driver.findElement(phoneNumberField).clear();
+        return isDisplayed;
     }
 }

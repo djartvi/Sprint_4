@@ -11,6 +11,7 @@ public class MainPage {
     private final WebDriver driver;
 
     private final By acceptCookieButton = By.id("rcc-confirm-button");
+    private final By yandexLogoButton = By.xpath("//*[contains(@class, 'Header_LogoYandex')]");
     private final By makeOrderHeaderButton = By.xpath("(//button[text()='Заказать'])[1]");
     private final By makeOrderBottomButton = By.xpath("(//button[text()='Заказать'])[2]");
 
@@ -35,15 +36,19 @@ public class MainPage {
         return this;
     }
 
-    public MainPage clickMakeOrderHeaderButton() {
-        driver.findElement(makeOrderHeaderButton).click();
+    public MainPage clickYandexLogoButton() {
+        driver.findElement(yandexLogoButton).click();
         return this;
     }
 
-    public MainPage clickMakeOrderBottomButton() {
-        WebElement element = driver.findElement(makeOrderBottomButton);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        element.click();
+    public MainPage clickMakeOrderButton(boolean isFromHeader) {
+        if (isFromHeader) {
+            driver.findElement(makeOrderHeaderButton).click();
+        } else {
+            WebElement element = driver.findElement(makeOrderBottomButton);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            element.click();
+        }
         return this;
     }
 

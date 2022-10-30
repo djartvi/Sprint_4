@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pom.BrowserSelect;
 import pom.MainPage;
 
 import java.time.Duration;
@@ -57,15 +58,12 @@ public class AccordionListTest {
         };
     }
 
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-    }
+    @Rule
+    public BrowserSelect browserSelect = new BrowserSelect();
 
     @Test
-    public void AccordionListTest() {
-        MainPage mainPage = new MainPage(driver);
+    public void AccordionListDropDownTest() {
+        MainPage mainPage = new MainPage(browserSelect.getDriver());
 
         mainPage
                 .open()
@@ -74,10 +72,5 @@ public class AccordionListTest {
                 .clickAccordionElement(elementText);
 
         assertEquals(result, mainPage.getAccordionDropDown(dropDownText).isDisplayed());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
     }
 }
