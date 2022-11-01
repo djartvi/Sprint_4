@@ -3,7 +3,6 @@ package pom;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class ClientDetailsPage {
     private final WebDriver driver;
@@ -23,7 +22,6 @@ public class ClientDetailsPage {
     private final By nameError = By.xpath("//*[text()='Введите корректное имя']");
     private final By surnameError = By.xpath("//*[text()='Введите корректную фамилию']");
     private final By addressError = By.xpath("//*[text()='Введите корректный адрес']");
-    private final By metroError = By.xpath("//*[text()='Выберите станцию']");
     private final By phoneNumberError = By.xpath("//*[text()='Введите корректный номер']");
 
     public ClientDetailsPage clickScooterLogoButton() {

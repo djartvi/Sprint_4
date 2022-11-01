@@ -4,11 +4,8 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pom.BrowserSelect;
 import pom.MainPage;
-
-import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
 

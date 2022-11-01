@@ -1,6 +1,7 @@
 package pom;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import java.time.LocalDate;
@@ -20,6 +21,13 @@ public class OrderDetailsPage {
 
     public OrderDetailsPage inputDate(String text) {
         driver.findElement(dateField).sendKeys(text);
+        driver.findElement(dateField).sendKeys(Keys.ENTER);
+        return this;
+    }
+
+    public OrderDetailsPage deleteDate() {
+        driver.findElement(dateField).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(dateField).sendKeys(Keys.DELETE);
         driver.findElement(dateField).sendKeys(Keys.ENTER);
         return this;
     }
@@ -45,15 +53,19 @@ public class OrderDetailsPage {
         return this;
     }
 
-    public boolean isDateCorrect(String date) {
+    public boolean isDateCorrect() {
+        boolean isCorrect;
         String futureDate = "31.12.2022";
+        String fieldDate = driver.findElement(dateField).getAttribute("value");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         LocalDate d1 = LocalDate.now();
-        LocalDate d2 = LocalDate.parse(date, formatter);
+        LocalDate d2 = LocalDate.parse(fieldDate, formatter);
         LocalDate d3 = LocalDate.parse(futureDate, formatter);
 
-        return (d1.isBefore(d2) && d2.isBefore(d3));
+        isCorrect = (d1.isBefore(d2) && d2.isBefore(d3));
+
+        return isCorrect;
     }
 }

@@ -1,18 +1,12 @@
 package makeorder;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import pom.*;
-
-import java.time.Duration;
 
 @RunWith(Parameterized.class)
 public class MakeOrderTest {
